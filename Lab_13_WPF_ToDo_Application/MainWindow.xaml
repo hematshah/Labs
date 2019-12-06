@@ -21,29 +21,78 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" Content="To Do Application" 
                FontSize="25" FontWeight="Bold" Background="#87fa96" HorizontalContentAlignment="Center"
                HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
 
         <TabPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="#b6FFF9">
-            <ListBox x:Name ="ListBoxTasks" Margin="0,0,-20,-9" SelectionChanged="ListBoxTasks_SelectionChanged"/>
+
+            <ListBox x:Name ="ListBoxTasks" Margin="0,0,-53,-50" SelectionChanged="ListBoxTasks_SelectionChanged" MouseDoubleClick="ListBoxTask_DoubleClick"/>
         </TabPanel>
-        <TextBox x:Name="TextBoxId" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Background="BlanchedAlmond" />
-        <TextBox x:Name="TextBoxDescription" Grid.Row="2" Grid.Column="5" IsReadOnly="True" Background="BlanchedAlmond" />
-        <TextBox x:Name="TextBoxCategoryId" Grid.Row="2" Grid.Column="6" IsReadOnly="True" Background="BlanchedAlmond" />
-        <Label x:Name="LabelId" Content="ID" Grid.Row="1" Grid.Column="4" />
-        <Label x:Name="LabelDescription" Content="Description" Grid.Row="1" Grid.Column="5" />
-        <Label x:Name="LabelCategory" Content="Category" Grid.Row="1" Grid.Column="6" />
+        <TextBox x:Name="TextBoxId" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Background="BlanchedAlmond" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <TextBox x:Name="TextBoxDescription" Grid.Row="2" Grid.Column="5" IsReadOnly="True" Background="BlanchedAlmond" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <TextBox x:Name="TextBoxCategoryId" Grid.Row="2" Grid.Column="6" IsReadOnly="True" Background="BlanchedAlmond" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label x:Name="LabelId" Content="TaskID" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,0,93,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label x:Name="LabelDescription" Content="Description" Grid.Row="1" Grid.Column="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label x:Name="LabelCategory" Content="CategoryID" Grid.Row="1" Grid.Column="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
         <Button x:Name="ButtonEdit" Content="Edit" IsEnabled="False" Grid.Row="1" Grid.Column="2" Background="BlanchedAlmond" Click="ButtonEdit_Click" />
         <Button x:Name="ButtonAdd" Content="Add" IsEnabled="False" Grid.Row="1" Grid.Column="1" Background="BlanchedAlmond" Click="ButtonAdd_Click" />
         <Button x:Name="ButtonDelete" Content="Delete" IsEnabled="False" Grid.Row="2" Grid.Column="1" Background="BlanchedAlmond" Click="ButtonDelete_Click" />
 
-        <ComboBox x:Name="ComboBoxCategory" Grid.Row="3" Grid.Column="6" Background="BlanchedAlmond"  />
 
+        <TabControl Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3" Background="#b6FFF9" >
+
+            <TabItem Header="Tasks" Background="Aqua" Margin="8,-2,-12,0">
+                <TabPanel x:Name="ViewData">
+                    <DataGrid x:Name="MyDataGrid" Margin="0,0,-203,-79">
+                    </DataGrid>
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header="Categories" Background="Aqua">
+                <TabPanel x:Name="Viewing">
+                    <ListView x:Name="ListviewCategory"  Margin="0,0,-141,-60">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Category ID" Width="100" DisplayMemberBinding="{Binding CategoryId}" />
+                                <GridViewColumn Header="Category Name" Width="150" DisplayMemberBinding="{Binding CategoryName}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header=" Users" Background="Aqua">
+                <TabPanel>
+                    <Label Content="Test3"/>
+                </TabPanel>
+            </TabItem>
+
+
+
+
+        </TabControl>
+
+
+        <Label x:Name="LabelDone" Content="Task Done?" Grid.Row="3" Grid.Column="4" RenderTransformOrigin="0.489,0.344" />
+        <Label x:Name="LabelDate" Content="Date Done" Grid.Row="3" Grid.Column="5" />
+        <Label x:Name="LabelCategoryName" Content="Category Name" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Center" />
+
+
+
+        <!--#region InputItems -->
+        <CheckBox x:Name="CheckBoxDone" Grid.Row="3" Grid.Column="4" Background="#b6ffF9" HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
+        <DatePicker x:Name="DatePickerDateDone" Grid.Row="3" Grid.Column="5" HorizontalContentAlignment="Stretch" Margin="0,36,0,0" />
+        <ComboBox x:Name="ComboBoxCategory" Grid.Row="3" Grid.Column="6" Background="BlanchedAlmond" HorizontalContentAlignment="Center" Margin="0,33,0,0"  />
+
+        <!--#endregion InputItems -->
 
     </Grid>
 </Window>

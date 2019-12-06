@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,8 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lab14_Linq\Lab_14_Linq.csproj" />
     <ProjectReference Include="..\Lab_08_TDD_Collections\Lab_08_TDD_Collections.csproj" />
     <ProjectReference Include="..\Lab_09_Rabbit_Test\Lab_09_Rabbit_Test.csproj" />
+    <ProjectReference Include="..\Lab_17_Northwind_Test\Lab_17_Northwind_Test.csproj" />
+    <ProjectReference Include="..\Lab_20_Northwind_Products\Lab_20_Northwind_Products.csproj" />
   </ItemGroup>
 
 </Project>

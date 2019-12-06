@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "ListView";
+}
+
+<h2>This is my List VIew page</h2>
+
+<h3> Page Title is @ViewData["Title"]</h3>
+
+<p>This is some Data Testting purposes</p>
+<br />
+
+<ul>
+     @foreach (var item in ViewBag.MyList)
+     {
+    <li>
+        This are my items: @item;
+        
+    </li>
+     }
+</ul>
+

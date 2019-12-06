@@ -24,6 +24,9 @@ namespace Lab_13_WPF_ToDo_Application
         List<Task> tasks = new List<Task>();
         Task task = new Task();
         List<Category> categories = new List<Category>();
+        List<TaskwithCategory> taskwithCategories = new List<TaskwithCategory>(); 
+
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +34,8 @@ namespace Lab_13_WPF_ToDo_Application
             Initialise();
 
         }
+
+        #region Old code
         //void IntialiseListBoxOfStrings() 
         //{
         //    //items.Add("he this is a list box");
@@ -50,6 +55,7 @@ namespace Lab_13_WPF_ToDo_Application
 
         //    }
         //}
+        #endregion
 
         void Initialise() 
         {
@@ -62,6 +68,47 @@ namespace Lab_13_WPF_ToDo_Application
             ListBoxTasks.DisplayMemberPath = "Description";
             ComboBoxCategory.ItemsSource = categories;
             ComboBoxCategory.DisplayMemberPath = "CategoryName";
+
+
+            // Inner Join
+            using (var db = new TaskDBEntities())
+            {
+                // task but it has a categoryID. inner join => CATEGORYID
+                var taskList =
+
+                from task in db.Tasks
+                join Category in db.Categories on
+                task.CategoryID equals Category.CategoryId
+
+                #region test join
+                //select new
+                //{
+                //   taskID = task.TaskID,
+                //   description = task.Description,
+                //   category = Category.CategoryName
+                //};
+
+                //foreach (var task in taskList.ToList())
+                //{
+                //    //System.Diagnostics.Trace.WriteLine($"{task.TaskId, -10}{task.TaskDescriptions, -20}{task.CategoryNames}");
+
+                //}
+                #endregion
+
+                select new TaskwithCategory()
+                {
+                    TaskId = task.TaskID, 
+                    TaskDescriptions = task.Description,
+                    CategoryNames = Category.CategoryName
+                };
+
+                // add  to list
+                taskwithCategories = taskList.ToList();
+                
+                MyDataGrid.ItemsSource = taskwithCategories;
+                ListviewCategory.ItemsSource = categories;
+
+            }
         }
 
         private void ListBoxTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -91,6 +138,38 @@ namespace Lab_13_WPF_ToDo_Application
             
         }
 
+        private void ListBoxTask_DoubleClick(object sender, MouseButtonEventArgs e ) 
+        {
+            // get object
+            task = (Task)ListBoxTasks.SelectedItem;
+            if (task != null)
+            {
+                TextBoxId.Text = task.TaskID.ToString();
+                TextBoxDescription.Text = task.Description;
+                TextBoxCategoryId.Text = task.CategoryID.ToString();
+                ButtonEdit.IsEnabled = true;
+                ButtonAdd.IsEnabled = true;
+                ButtonDelete.IsEnabled = true;
+                if (task.CategoryID != null)
+                {
+                    ComboBoxCategory.SelectedIndex = (int)task.CategoryID - 1;
+                }
+                else
+                {
+                    ComboBoxCategory.SelectedItem = null;
+                }
+
+                TextBoxDescription.IsReadOnly = false;
+                TextBoxCategoryId.IsReadOnly = false;
+                ButtonEdit.Content = "Save";
+
+                TextBoxDescription.Background = Brushes.White;
+                TextBoxCategoryId.Background = Brushes.White;
+
+            }
+        }
+
+
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             if (ButtonEdit.Content.ToString() == "Edit")  // one = is to assign but two == is to validate
@@ -114,6 +193,14 @@ namespace Lab_13_WPF_ToDo_Application
                     // because the textbox containing text is of type integer regardless of the type categoryid being of a type int
                     int.TryParse(TextBoxCategoryId.Text, out int categoryid);
                     taskToEdit.CategoryID = categoryid;
+                    if (task.CategoryID != null)
+                    {
+                        ComboBoxCategory.SelectedIndex = (int)taskToEdit.CategoryID - 1;
+                    }
+                    else
+                    {
+                        ComboBoxCategory.SelectedItem = null;
+                    }
 
                     // save the changes of the box
                     db.SaveChanges();
@@ -198,8 +285,11 @@ namespace Lab_13_WPF_ToDo_Application
         {
             if (ButtonDelete.Content.ToString() == "Delete")
             {
-                ButtonDelete.Content = "Are you sure?";  // set boxes to Delete
-
+                ButtonDelete.Content = "Are You Sure?";  // set boxes to Delete
+                var brush = new BrushConverter();
+                TextBoxId.Background = (Brush)brush.ConvertFrom("#e03636");
+                TextBoxDescription.Background = (Brush)brush.ConvertFrom("#e03636");
+                TextBoxCategoryId.Background = (Brush)brush.ConvertFrom("#e03636"); 
 
             }
             else
@@ -221,9 +311,26 @@ namespace Lab_13_WPF_ToDo_Application
 
                 ButtonDelete.Content = "Delete";
                 ButtonDelete.IsEnabled = false;
+                TextBoxDescription.IsReadOnly = true;
+                TextBoxCategoryId.IsReadOnly = true;
+                var brush = new BrushConverter();
+                TextBoxId.Background = (Brush)brush.ConvertFrom("BlanchedAlmond");
+                TextBoxDescription.Background = (Brush)brush.ConvertFrom("BlanchedAlmond");
+                TextBoxCategoryId.Background = (Brush)brush.ConvertFrom("BlanchedAlmond");
 
             }
 
         }
+
+      
+    }
+
+    public class TaskwithCategory 
+    {
+        // 3 fields
+
+        public int TaskId { get; set; }
+        public string TaskDescriptions { get; set; }
+        public string CategoryNames { get; set; }
     }
 }
