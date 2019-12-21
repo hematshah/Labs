@@ -1,4 +1,4 @@
-﻿@model LAB_27_MVC_Core.Controllers.HomeController.
+﻿@model List<int>
 @{
     ViewData["Title"] = "MyAction";
 }
@@ -23,11 +23,10 @@
 <h2>Now lets try as a MODEL</h2>
 <br />
 <ul>
-    @foreach (var item in Model.)
+    @foreach (var item in @Model)
     {
         <li>
-            This are my items: @item;
-
+             @item;
         </li>
     }
 </ul>

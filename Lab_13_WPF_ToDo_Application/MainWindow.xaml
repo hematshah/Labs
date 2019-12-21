@@ -50,7 +50,7 @@
 
             <TabItem Header="Tasks" Background="Aqua" Margin="8,-2,-12,0">
                 <TabPanel x:Name="ViewData">
-                    <DataGrid x:Name="MyDataGrid" Margin="0,0,-203,-79">
+                    <DataGrid x:Name="MyDataGrid" Margin="0,0,-203,-79" >
                     </DataGrid>
                 </TabPanel>
             </TabItem>

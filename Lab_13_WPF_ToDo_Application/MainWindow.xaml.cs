@@ -80,6 +80,8 @@ namespace Lab_13_WPF_ToDo_Application
                 join Category in db.Categories on
                 task.CategoryID equals Category.CategoryId
 
+
+
                 #region test join
                 //select new
                 //{
@@ -105,8 +107,8 @@ namespace Lab_13_WPF_ToDo_Application
                 // add  to list
                 taskwithCategories = taskList.ToList();
                 
-                MyDataGrid.ItemsSource = taskwithCategories;
-                ListviewCategory.ItemsSource = categories;
+                MyDataGrid.ItemsSource = categories;
+                ListviewCategory.ItemsSource =  taskwithCategories;
 
             }
         }

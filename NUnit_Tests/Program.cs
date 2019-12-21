@@ -5,6 +5,9 @@ using Lab_09_Rabbit_Test;
 using Lab_17_Northwind_Test;
 using Lab14_Linq;
 using Lab_20_Northwind_Products;
+using Lab_28_Fibonacci;
+
+
 
 
 
@@ -143,6 +146,50 @@ namespace NUnit_Tests
         }
 
         #endregion
+
+
+        #region testing Fibonacci nth term
+        [TestCase(0, 0)]
+        [TestCase(6, 8)]
+        [TestCase(15, 610)]
+
+        public void TestingTheNthNumberFibonacci(int nth, int expected) 
+        {
+            //instance (range)
+            var testing = new Lab_28_Fibonacci.FibonacciTesting();
+
+            //act (method)
+            var actual = testing.ReturnFibbonacciNthItemInSequence(nth);
+
+            //assert
+            Assert.AreEqual(actual, expected);
+            
+        }
+
+        #endregion
+
+
+        #region testingSimsoms
+        [TestCase(6,0,6,72)]
+        [TestCase(5,0,6,66)]
+
+        public void testSimsonsRuleTheAreaUnderTheCurve(int nth, int min , int max, int expected) 
+        {
+            // create instance
+            var testSimsons = new LAb_29_SimpsonsRule_Area_under_Graph.SimsonsRule();
+
+            // actual
+            var actual = testSimsons.GetAreaUnderGraphUsingSimpsonsRule(nth,min,max);
+
+            //assert
+            Assert.AreEqual(actual, expected);
+        }
+
+
+        #endregion
+
+
+
 
     }
 }

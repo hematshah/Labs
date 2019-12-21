@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +18,8 @@
     <ProjectReference Include="..\Lab_09_Rabbit_Test\Lab_09_Rabbit_Test.csproj" />
     <ProjectReference Include="..\Lab_17_Northwind_Test\Lab_17_Northwind_Test.csproj" />
     <ProjectReference Include="..\Lab_20_Northwind_Products\Lab_20_Northwind_Products.csproj" />
+    <ProjectReference Include="..\Lab_28_Fibonacci\Lab_28_Fibonacci.csproj" />
+    <ProjectReference Include="..\LAb_29_SimpsonsRule_Area_under_Graph\LAb_29_SimpsonsRule_Area_under_Graph.csproj" />
   </ItemGroup>
 
 </Project>
